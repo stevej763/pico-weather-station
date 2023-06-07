@@ -19,7 +19,7 @@ wifi = WifiConnection(ssid, password, StatusLight("LED"))
 app = Microdot()
 
 @app.route('/data')
-def get_data(request):
+def get_data():
     response_json = {
           "deviceId": pico_id,
           "temperature": bme.get_temperature(),
@@ -29,7 +29,7 @@ def get_data(request):
     return response_json
 
 @app.route('/data/temperature')
-def get_temperature(request):
+def get_temperature():
     response_json = {
           "deviceId": pico_id,
           "temperature": bme.get_temperature()
@@ -37,7 +37,7 @@ def get_temperature(request):
     return response_json
 
 @app.route('/data/pressure')
-def get_pressure(request):
+def get_pressure():
     response_json = {
           "deviceId": pico_id,
           "pressure": bme.get_pressure(),
@@ -45,7 +45,7 @@ def get_pressure(request):
     return response_json
 
 @app.route('/data/humidity')
-def get_humidity(request):
+def get_humidity():
     response_json = {
           "deviceId": pico_id,
           "humidity": bme.get_humidity()
@@ -54,11 +54,3 @@ def get_humidity(request):
 
 wifi.connect()
 app.run('0.0.0.0', 8080, True)
- 
-
-while True:
-  print("readable values: {}".format(bme.values))
-  print("temperature raw: " + str(bme.get_temperature()))
-  print("pressure raw: " + str(bme.get_pressure()))
-  print("humidity raw: " + str(bme.get_humidity()))
-  sleep(1)
